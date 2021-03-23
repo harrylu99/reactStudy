@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jsx_virtualDOM</title>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        //1. virtual DOM 
+        const VDOM = <h1 id="title">Hello,React</h1>
+        //2. to page
+        ReactDOM.render(VDOM,document.getElementById('test'))
+
+
+
+    </script>
+</body>
+
+</html>

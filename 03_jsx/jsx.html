@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jsx</title>
+    <style>
+        .title{
+            background-color: orange;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        //1. virtual DOM 
+
+        const myId = 'SaY'
+        const myData = 'Hello,REAct'
+
+        const VDOM = (
+            <div>            
+                <h2 className = "title" id = {myId.toLocaleLowerCase()}>
+                    <span style={{color:'white', fontSize:'30px'}}>{myData.toLocaleLowerCase()}</span>
+                </h2>
+                <h2 className = "title" id = {myId.toLocaleLowerCase()}>
+                    <span style={{color:'white', fontSize:'30px'}}>{myData.toLocaleLowerCase()}</span>
+                </h2>
+                <input type="text"/>
+
+            </div>
+
+
+        )
+        //2. to page
+        ReactDOM.render(VDOM,document.getElementById('test'))
+
+
+        /*
+        syntax 
+        1. dont use '' when defind virtual DOm
+        2. use {} to get the JS element
+        3. use className to use the style
+        4. use style={{key:value}} to add style inside 
+        5. there is only one tag in the virtual DOM
+        6. must close tag
+        7. first letter of the tag
+          7.1 start with the lower case, it woulf transfer to the same tag element in html,if it can not be found, then error
+          7.2 start with the upper case, react go to fing the component
+
+        */
+
+
+
+    </script>
+</body>
+
+</html>
