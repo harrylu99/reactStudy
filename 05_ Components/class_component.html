@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Component</title>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        //1. create class component
+        class Demo extends React.Component{
+            render(){
+                // where is render? is on the prototype of Demo, for instance to use
+                // what is this in rendeer? is the instance of the Demo/ Demo's component's instance object
+                consolo.log(this);
+                return <h2>Hello Hello</h2>
+            }
+        }
+        ReactDOM.render(<Demo/>,document.getElementById('test'))
+         /*
+        1. React analyse the component tag, and find in the code
+        2. found it is defined by class, new instance, and call the method from the prototype
+        3. return virtual DOM transfer to real DOM
+        */
+
+       
+
+
+
+    </script>
+</body>
+
+</html>

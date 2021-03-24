@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Component</title>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        //1. create class component
+        class Weather extends React.Component{
+            //how many time has constructor been call? -- once
+            constructor(props){
+                super(props)
+                //initialize state
+                this.state = {
+                    isHot:false
+                }
+                //let this re-point to the prototype
+                this.changeWeather = this.changeWeather.bind(this)
+            }
+
+			render(){
+                //how many time has render been call? --n+1 times
+				console.log('render');
+                // call state
+				const {isHot,wind} = this.state
+				return <h1 onClick={this.changeWeather}>Today is {isHot ? 'hot' : 'cold'}</h1>
+			}
+
+            changeWeather(){
+                //how many time has changeWeather been call? -- n times
+
+                //changeWeather is on the Weather's prototype, for instance to use
+                //cause changeWeather is called by onClick, so it is not call by instance
+                //the strict mode is on in the part of code, so the this in changeWeather is undefined
+                //--//when use Weather to call the changeWeather, changeWeather's 'this' is the prototype of Weather
+                
+                //get origin isHot value
+                const isHot = this.state.isHot
+                //stats need to be changed by setStats  and it is not replace, it is merge
+                this.setState({isHot:!isHot})
+				console.log(this);
+
+                //! stats cannot be changed / it need to be changed by API
+                // this.stats.isHot = !isHot
+             }
+        }
+
+        ReactDOM.render(<Weather/>,document.getElementById('test'))
+    
+    //    const title = document.getElementById('title')
+    //    title.addEventListener('click',()=>{
+    //        console.log('Hey')
+    //    })
+
+    //    const title = document.getElementById('title')
+    //    title.onclick = () =>{
+    //        console.log('Hey')
+    //    }
+
+ 
+    </script>
+</body>
+
+</html>

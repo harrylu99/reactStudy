@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    /*
+    1. constructor is not necessary/ when the attribute need to be define/ add attribute
+    2. super / for child class use the constructor from the parent class
+    */
+    class Person{
+        constructor(name,age){
+            this.name = name
+            this.age = age
+        }
+        speak(){
+            console.log(`I'm ${this.name}, my age is ${this.age}`)
+        }
+
+    }
+
+    class Student extends Person{
+        constructor(name, age, grade){
+            super(name, age)
+            this.grade = grade
+        }
+        speak(){
+            console.log(`I'm ${this.name}, my age is ${this.age}, I am in ${this.grade}`)
+        }
+
+    }
+
+    // const p1 = new Person('Tom', 18)
+    // const p2 = new Person('Jerry', 19)
+
+    // console.log(p1);
+    // console.log(p2);
+    // p1.speak()
+    // p2.speak()
+
+    const s1 = new Student('Bob', 18, 'level 12')
+    console.log(s1)
+    s1.speak()
+
+
+
+
+    </script>
+</body>
+</html>

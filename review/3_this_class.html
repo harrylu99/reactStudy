@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+    class Person{
+        constructor(name, age){
+            this.name = name
+            this.age = age
+        }
+        speak(){
+        //speak is on the Person's prototype, for instance to use
+        //when use Person to call the speak, speak's 'this' is the prototype of Person
+            console.log(this);
+        }
+    }
+
+    const p1 = new Person('Tom', 18)
+    p1.speak() //use instance to call this
+    const x = p1.study
+    x()
+
+
+    </script>
+</body>
+</html>

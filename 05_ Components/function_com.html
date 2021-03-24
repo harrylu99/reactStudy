@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Component</title>
+</head>
+
+<body>
+    <div id="test"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        //1. create funciton component
+        function Demo(){
+            console.log(this); // this - undefined, cause it is in strict mode
+            return <h2>This is me</h2>
+        }
+
+        ReactDOM.render(<Demo/>,document.getElementById('test'))
+
+        /*
+        1. React analyse the component tag, and find in the code
+        2. found it is defined by function, call the function and tranfer the virtual DOM to real DOM on the page
+        */
+
+
+
+    </script>
+</body>
+
+</html>
