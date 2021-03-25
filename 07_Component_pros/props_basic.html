@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Component</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+
+        class Person extends React.Component{
+            
+            render(){
+                const {name, sex, age} = this.props
+                return(
+                    <ul>
+                        <li>Name: {name}</li>
+                        <li>Gender: {sex}</li>
+                        <li>Age: {age}</li>
+                    </ul>
+                )
+            }
+        }
+        
+        ReactDOM.render(<Person name="Tom" age="18" sex="male" />,document.getElementById('test'))
+        ReactDOM.render(<Person name="Angela" age="18" sex="female" />,document.getElementById('test2'))
+        const p = {name: 'Bob', age: 19, sex: 'female'}
+        // ReactDOM.render(<Person name={p.name} age={p.age} sex={p.sex}/>, document.getElementById('test'))
+        ReactDOM.render(<Person {...p}/>, document.getElementById('test3'))
+
+        // ReactDOM.render(<Person name="Tom" age="18" sex="female" />,document.getElementById('test'))
+
+ 
+    </script>
+</body>
+
+</html>
