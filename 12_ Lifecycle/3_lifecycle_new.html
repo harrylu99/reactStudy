@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Life Cycle</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+    <script type="text/babel">
+
+    /*
+        1. initial: ReactDOM.render() ---first time rendering
+            1.	constructor()
+            2.	getDerivedStateFromProps 
+            3.	render()
+            4.	componentDidMount()
+        2. update: this.setSate() or parent com render 
+            1.	getDerivedStateFromProps
+            2.	shouldComponentUpdate()
+            3.	render()
+            4.	getSnapshotBeforeUpdate
+            5.	componentDidUpdate()
+        3. unmount: ReactDOM.unmountComponentAtNode()
+            1.	componentWillUnmount()
+
+    
+    */
+
+        //create component
+        class Count extends React.Component{
+            
+            //constructor
+            constructor(props){
+                console.log('Count-construtor');
+                super(props)
+                //initial state
+                this.state  ={count: 0}
+            }
+
+
+            //+1 button
+            add = () =>{
+                //get origin state
+                const {count} = this.state 
+                //update
+                this.setState({count: count+1})
+            }
+            //callback of unmount 
+            death = () =>{
+                ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+            }
+
+            //callback of force update
+            force = () =>{
+                this.forceUpdate()
+            }
+
+            // //component will mount
+            // UNSAFE_componentWillMount(){
+            //     console.log('Count-componentWillMount');
+            // }
+
+            // the value of status if depends on the value of props
+            // static getDerivedStateFromProps(props){
+            //     console.log('Count-getDerivedStateFromProps',props);
+            //     return {props}
+            // }
+
+            getSnapshotBeforeUpdate(){
+                console.log('Count-getSnapshotBeforeUpdate');
+                return null
+            }
+
+            //after component been mount
+            componentDidMount(){
+                console.log('Count-componentDidMount');
+            }
+
+            //component will unmount
+            componentWillUnmount(){
+                console.log('Count-componentWillUnmount');
+            }
+
+            //control component could update
+            shouldComponentUpdate(){
+                console.log('Count-shouldComponentUpdate');
+                return true
+            }
+
+            // //component will update
+            // UNSAFE_componentWillUpdate(){
+            //     console.log('Count-componentWillUpdate');
+            // }
+
+            //component updated
+            componentDidUpdate(preProps, preState){
+                console.log('Count-componentDidUpdate',preProps, preState);
+            }
+
+
+            render(){
+                console.log('Count-render');
+                const {count} = this.state
+                return(
+                    <div>
+                        <h2>The sum is {count}</h2>
+                        <button onClick={this.add}>Click me + 1</button>
+                        <button onClick={this.death}> Unmount</button>
+                        <button onClick={this.force}>Force</button>
+                    </div>
+                )
+            }
+
+        }
+
+        //parent componentA
+        class A extends React.Component{
+
+            state = {carName: 'BMW'}
+
+            changeCar = () =>{
+                this.setState({carName: 'Toyota'})
+            }
+
+            render(){
+                return(
+                    <div>
+                        <div>A</div>
+                        <button onClick={this.changeCar}>Change Car</button>
+                        <B carName={this.state.carName}/>
+                    </div>
+                )
+            }
+        }
+
+        //child componentB
+        class B extends React.Component{
+
+            UNSAFE_componentWillReceiveProps(){
+                console.log('B-componentWillReceiveProps');
+            }
+
+            shouldComponentUpdate(){
+                console.log('B-shouldComponentUpdate');
+                return true
+            }
+
+            componentWillUpdate(){
+                console.log('B-componentWillUpdate');
+            }
+
+            componentDidUpdate(){
+                console.log('B-componentDidUpdate');
+            }
+
+            render(){
+                console.log('B-render');
+                return(
+                    <div>B:{this.props.carName}</div>
+                )
+            }
+        }
+
+        //rendering component
+        ReactDOM.render(<Count/>,document.getElementById('test'))
+
+ 
+ 
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Component</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+
+    class Login extends React.Component{
+        
+        handleSubmit = (event) =>{
+            event.preventDefault()
+            const{username, password} = this
+            alert(`Your username is ${username.value}, your password is ${password.value}`)
+        }
+
+        render(){
+            return(
+                <form action="http://www.google.com" onSubmit={this.handleSubmit}>
+                    Username: <input ref = {c => this.username = c} type="text" name="username"/>
+                    Password: <input ref = {c => this.password = c} type="password" name="password"/>
+                    <button>Login</button>
+                 </form>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<Login/>,document.getElementById('test'))
+
+ 
+ 
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Component</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+
+    class Login extends React.Component{
+
+        /*
+
+            High order function
+                1. if a fucntion's paremeter is a function, then it is 
+                2. if a function call a function return, then it is
+                normal: Promiss setTimeout arr.map
+
+            Function currying
+    
+        
+        */
+    
+        state = {
+            username:'',
+            password:''
+        }
+
+        saveFormData = (dataType,event) => {
+                this.setState({[dataType]:event.target.value})
+        }
+
+        handleSubmit = (event) =>{
+            event.preventDefault()
+            const{username, password} = this.state
+            alert(`Your username is ${username}, your password is ${password}`)
+        }
+
+        render(){
+            return(
+                <form onSubmit={this.handleSubmit}>
+                    Username: <input onChange={event=> this.saveFormData('username',event)} type="text" name="username"/>
+                    Password: <input onChange={event=> this.saveFormData('password',event)}type="password" name="password"/>
+                    <button>Login</button>
+                 </form>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<Login/>,document.getElementById('test'))
+
+ 
+ 
+    </script>
+</body>
+
+</html>

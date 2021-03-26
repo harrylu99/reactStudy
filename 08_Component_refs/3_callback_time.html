@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Component</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+
+    class Demo extends React.Component{ 
+
+        state = {isHot: true}
+     
+        showInfo = () => {
+            const {input1} = this
+            alert(input1.value)
+        }
+
+        changeWeather = () => {
+            const {isHot} = this.state
+            this.setState({isHot:!isHot})
+        }
+
+        saveInput = (c) =>{
+            this.input1 = c;
+            console.log('@',c);
+        }
+
+        render(){
+            const {isHot} = this.state
+            return(
+                <div>
+                    <h2>Today is {isHot ?'Hot' :'Cold'} </h2>
+                   {/*<input ref={(c) => {this.input1 = c; console.log('@',c);}} type="text" placeholder="Click buttom to alret"/>*/}
+                   <input ref={this.saveInput} type="text" placeholder="Click buttom to alret"/>
+                   <button onClick={this.showInfo}>click me</button>
+                   <button onClick = {this.changeWeather}>click me</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
+    </script>
+</body>
+
+</html>

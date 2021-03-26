@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Life Cycle</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+
+    class Life extends React.Component{
+
+        state = {opacity: 1}
+
+        death = () => {
+            //unmount
+            ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+        }
+        //after component been mount  it would only call once 
+        componentDidMount(){
+            this.timer = setInterval(()=>{
+                //get origin
+                let {opacity} = this.state
+                //mins
+                opacity -= 0.1
+                if(opacity <= 0) opacity = 1
+                //set new
+                this.setState({opacity})
+            },200);
+        }
+
+        //unmount
+        componentWillUnmount(){
+                //delete timer
+                clearInterval(this.timer)
+        }
+        
+        //call when initial, refresh
+        render(){
+            return(
+                <div>
+                    <h2 style={{opacity: this.state.opacity}}>React is so difficult to learn</h2>
+                    <button onClick={this.death}>Give up</button>
+                </div>
+            )
+        }
+    }
+
+
+    ReactDOM.render(<Life/>,document.getElementById('test'))
+
+ 
+ 
+    </script>
+</body>
+
+</html>

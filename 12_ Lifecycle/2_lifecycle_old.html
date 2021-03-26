@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Life Cycle</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+
+/*
+        1. initial: ReactDOM.render() ---first time rendering
+            1.	constructor()
+            2.	componentWillMount()
+            3.	render()
+            4.	componentDidMount()  ====> often 
+                                    did some initial stuff
+                                    timeout, internet request, subscribe...
+        2. update: this.setSate() or parent com render 
+            1.	shouldComponentUpdate()
+            2.	componentWillUpdate()
+            3.	render() =====> must
+            4.	componentDidUpdate()
+        3. unmount: ReactDOM.unmountComponentAtNode()
+            1.	componentWillUnmount() ===> often
+                                    did some stuff at the end
+                                    turn off timeout, unsubacribe...
+*/
+       
+
+        //create component
+        class Count extends React.Component{
+            
+            //constructor
+            constructor(props){
+                console.log('Count-construtor');
+                super(props)
+                //initial state
+                this.state  ={count: 0}
+            }
+
+
+            //+1 button
+            add = () =>{
+                //get origin state
+                const {count} = this.state 
+                //update
+                this.setState({count: count+1})
+            }
+            //callback of unmount 
+            death = () =>{
+                ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+            }
+
+            //callback of force update
+            force = () =>{
+                this.forceUpdate()
+            }
+
+            //component will mount
+            componentWillMount(){
+                console.log('Count-componentWillMount');
+            }
+
+            //after component been mount
+            componentDidMount(){
+                console.log('Count-componentDidMount');
+            }
+
+            //component will unmount
+            componentWillUnmount(){
+                console.log('Count-componentWillUnmount');
+            }
+
+            //control component could update
+            shouldComponentUpdate(){
+                console.log('Count-shouldComponentUpdate');
+                return true
+            }
+
+            //component will update
+            componentWillUpdate(){
+                console.log('Count-componentWillUpdate');
+            }
+
+            //component updated
+            componentDidUpdate(){
+                console.log('Count-componentDidUpdate');
+            }
+
+
+            render(){
+                console.log('Count-render');
+                const {count} = this.state
+                return(
+                    <div>
+                        <h2>The sum is {count}</h2>
+                        <button onClick={this.add}>Click me + 1</button>
+                        <button onClick={this.death}> Unmount</button>
+                        <button onClick={this.force}>Force</button>
+                    </div>
+                )
+            }
+
+        }
+
+        //parent componentA
+        class A extends React.Component{
+
+            state = {carName: 'BMW'}
+
+            changeCar = () =>{
+                this.setState({carName: 'Toyota'})
+            }
+
+            render(){
+                return(
+                    <div>
+                        <div>A</div>
+                        <button onClick={this.changeCar}>Change Car</button>
+                        <B carName={this.state.carName}/>
+                    </div>
+                )
+            }
+        }
+
+        //child componentB
+        class B extends React.Component{
+
+            componentWillReceiveProps(){
+                console.log('B-componentWillReceiveProps');
+            }
+
+            shouldComponentUpdate(){
+                console.log('B-shouldComponentUpdate');
+                return true
+            }
+
+            componentWillUpdate(){
+                console.log('B-componentWillUpdate');
+            }
+
+            componentDidUpdate(){
+                console.log('B-componentDidUpdate');
+            }
+
+            render(){
+                console.log('B-render');
+                return(
+                    <div>B:{this.props.carName}</div>
+                )
+            }
+        }
+
+        //rendering component
+        ReactDOM.render(<A/>,document.getElementById('test'))
+
+ 
+ 
+    </script>
+</body>
+
+</html>
