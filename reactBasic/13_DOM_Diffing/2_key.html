@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Diffing</title>
+</head>
+
+<body>
+    <div id="test"></div>
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+    <script type="text/babel">
+
+    /*
+    1. what is key in react?
+    2. why should we use index for key?
+
+    key in virtual DOM
+        react will have new virtual DOM when it get new data
+        and then it will compare with the old DOM(diff compoare)
+
+        rule:
+            a. if key have been found in the old DOM, and it is as the same as the new DOM
+                //context did not change, use the new DOM
+                //context changed, will have a new DOM and replace the old one
+            b. if key have not been found in the old DOM
+                will have new DOM 
+
+    use index as key might occur
+            a. unorder add/update would 
+                unnecessary virtual DOM update 
+            b. include input DOM
+                wrong DOM update
+            c. other way it could be fine
+
+    whow to choose key?
+            a. the unique tag should be the first choice e.g. id, phonenumber
+            b. index should be fine when you show the simple data
+    */
+
+
+    /*
+    slomo ---- use index as key
+        initial data:
+            {id:1, name:'Bob', age:18},
+            {id:2, name:'Jack', age:19},
+        initial DOM:
+            <li key=0> Bob---18</li>
+            <li key=1> Jack---19</li>
+
+        updated data:
+            {id:3, name:'Linda', age:20},  
+            {id:1, name:'Bob', age:18},
+            {id:2, name:'Jack', age:19},    
+        updated DOM:
+            <li key=0> Linda---20</li>    
+            <li key=1> Bob---18</li>
+            <li key=2> Jack---19</li>
+
+
+
+    slomo ---- use id as key
+        initial data:
+            {id:1, name:'Bob', age:18},
+            {id:2, name:'Jack', age:19},
+        initial DOM:
+            <li key=1> Bob---18</li>
+            <li key=2> Jack---19</li>
+
+        updated data:
+            {id:3, name:'Linda', age:20},  
+            {id:1, name:'Bob', age:18},
+            {id:2, name:'Jack', age:19},    
+        updated DOM:
+            <li key=3> Linda---20</li>    
+            <li key=1> Bob---18</li>
+            <li key=2> Jack---19</li>
+    
+    */
+        class Person extends React.Component{
+            
+            state = {
+                persons:[
+                    {id:1, name:'Bob', age:18},
+                    {id:2, name:'Jack', age:19},
+                ]
+            }
+
+            add = () =>{
+                const {persons} = this.state
+                const p = {id:persons.length+1, name:'Linda', age:20}
+                this.setState({persons:[p,...persons]})
+            }
+
+            render(){
+                return(
+                    <div>
+                        <h2>Show</h2>
+                        <h3>use index</h3>
+                        <button onClick={this.add}>Add Linda</button>
+                    <ul>
+                        {
+                            this.state.persons.map((personObj,index) => {
+                                return <li key={index}>{personObj.name}----{personObj.age}</li>
+                            })
+                        }
+                    </ul>
+
+                    <h3>use id</h3>
+                    <ul>
+                        {
+                            this.state.persons.map((personObj) => {
+                                return <li key={personObj.id}>{personObj.name}----{personObj.age}</li>
+                            })
+                        }
+                    </ul>
+                    </div>
+                )
+            }
+        }
+        //rendering component
+        ReactDOM.render(<Person/>,document.getElementById('test'))
+
+ 
+ 
+    </script>
+</body>
+
+</html>
