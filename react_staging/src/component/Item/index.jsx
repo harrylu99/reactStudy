@@ -30,7 +30,6 @@ export default class Item extends Component {
         const {id,name,done} = this.props
         const {mouse} = this.state
         return (
-            <div>
               <li style={{backgroundColor: mouse ?'#ddd' : 'white'}}onMouseLeave={this.handleMouse(false)} onMouseEnter={this.handleMouse(true)}>
                 <label>
                   <input type="checkbox" checked={done} onChange={this.handleCheck(id)}/>
@@ -38,7 +37,6 @@ export default class Item extends Component {
                 </label>
                 <button onClick={()=>this.handleDelete(id)}className="btn btn-danger" style={{display:mouse?'block':'none'}}>Delete</button>
               </li>
-            </div>
         )
     }
 }

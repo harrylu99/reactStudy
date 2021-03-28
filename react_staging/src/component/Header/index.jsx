@@ -9,6 +9,10 @@ export default class Header extends Component {
         addTodo: PropTypes.func.isRequired
     }
 
+	static propTypes = {
+		addTodo:PropTypes.func.isRequired
+	}
+
     //callback func, keyboard 
     handleKeyup = (event) =>{
         //destructuring assignment, get keyCode and target 
