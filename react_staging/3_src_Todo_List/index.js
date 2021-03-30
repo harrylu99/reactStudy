@@ -1,7 +1,9 @@
+// import react libraary
 import React from 'react'
-
+// import ReactDOM
 import ReactDOM from 'react-dom'
+//import App component
+import App from './App'
 
-import App from './App.jsx'
-
+// rendering
 ReactDOM.render(<App/>,document.getElementById('root'))
