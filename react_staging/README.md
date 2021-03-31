@@ -1,70 +1,120 @@
-# Getting Started with Create React App
+## I. todoList
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+    	1.Split components, implement static components, Be careful：className、style
+    	2.Dynamically initialize the list, define that should be in the state？
+    				——for a individual component: code in its own state
+    				——for dome components：code in their parent compoent's state (state Upgrade)
+    	3.About the parent and child component：
+    			1.【parent component】to【child com】：use props
+    			2.【child com】to【parent com】：use props，required parent pass a function to the child ahead of time
+    	4.Be care of the diffence defaultChecked and checked，defaultValue and value
+    	5.ethods of manipulating state depends on the state
 
-## Available Scripts
+## II. github search
 
-In the project directory, you can run:
+    	1.Consider the state of the design, such as a component with a network request, and what to do if the request fails.
+    	2.ES6：Deconstruct assignment + rename
+    				let obj = {a:{b:1}}
+    				const {a} = obj; //traditional deconstruct assignment
+    				const {a:{b}} = obj; //continue deconstruct assignment
+    				const {a:{b:value}} = obj; //continue deconstruct assignment + rename
+    	3.Pub and Sub
+    				1.Subscribe first and then pubish
+    				2.Applicable to any communication between components
+    				3.unsubscribe in componentWillUnmount
+    	4.fetch
+    				try {
+    					const response= await fetch(`/api1/search/users2?q=${keyWord}`)
+    					const data = await response.json()
+    					console.log(data);
+    				} catch (error) {
+    					console.log('error',error);
+    				}
 
-### `yarn start`
+## III. Router basic use
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    		1.Clear the navigation area and display area in the web
+    		2.use Link tag instead a tag in the navigation area
+    					<Link to="/xxxxx">Demo</Link>
+    		3.use Route tag code the path
+    					<Route path='/xxxx' component={Demo}/>
+    		4.Outside of <App> is wrapped by <BrowserRouter> or <HashRouter>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## IV. Route components and normal component
 
-### `yarn test`
+    		1.different syntax：
+    					normal component：<Demo/>
+    					route compoennt：<Route path="/demo" component={Demo}/>
+    		2.different store location：
+    					normal component：components
+    					route component：pages
+    		3.porps：
+    					normal compoennt：depends on what have been code when coding in component
+    					route component：three attributes are received
+    										history:
+    													go: ƒ go(n)
+    													goBack: ƒ goBack()
+    													goForward: ƒ goForward()
+    													push: ƒ push(path, state)
+    													replace: ƒ replace(path, state)
+    										location:
+    													pathname: "/about"
+    													search: ""
+    													state: undefined
+    										match:
+    													params: {}
+    													path: "/about"
+    													url: "/about"
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## V. NavLink and packing NavLink
 
-### `yarn build`
+    		NavLink can be used to highlight routing links and specify the style name via ActiveClassName
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## VI. Switch
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    	1. In general, Path and Component are one-to-one.
+    	2.Switch can improve routing matching efficiency (single matching).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## VII. Solution for missing page styles for multilevel path refresh
 
-### `yarn eject`
+    	1.public/index.html dont use ./ use  /
+    	2.public/index.html dont use ./ use  %PUBLIC_URL%
+    	3.Use HashRouter
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## VIII. Strict matching and fuzzy matching
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    	1.The default is fuzzy matching
+    	2.use srtict：<Route exact={true} path="/about" component={About}/>
+    	3.Do not turn on strict matching casually.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## IX. Redirect
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    	1.It is usually written at the bottom of all route registrations, and when all routes fail to match, it redirects to the route specified by Redirect
+    	2.syntax：
+    					<Switch>
+    						<Route path="/about" component={About}/>
+    						<Route path="/home" component={Home}/>
+    						<Redirect to="/about"/>
+    					</Switch>
 
-## Learn More
+## X. Nest route
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    			1.When registering a child route, write the parent route's PATH value
+    			2.Routs are matched in the order in which they are registered
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## XI. Passing parameters to the routing component
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    			1.params
+    					*//Routing link(bing parameters)：<Link to='/demo/test/tom/18'}>详情</Link>
+    					*//Register route：<Route path="/demo/test/:name/:age" component={Test}/>
+    					*//Receive：this.props.match.params
+    			2.search
+    					*//Routing link(bing parameters)：<Link to='/demo/test?name=tom&age=18'}>Infor</Link>
+    					*//Register route(Normal registration is required without declaration)：<Route path="/demo/test" component={Test}/>
+    					*//Receive：this.props.location.search
+    					*//ps：The search obtained is a urlencoded string that needs to be parsed with queryString
+    			3.state
+    					*//Routing link(bing parameters)：<Link to={{pathname:'/demo/test',state:{name:'tom',age:18}}}>Infor</Link>
+    					*//Register route(Normal registration is required without declaration)：<Route path="/demo/test" component={Test}/>
+    					*//Receive：this.props.location.state
+    					*//ps：Refresh can also preserve parameters
