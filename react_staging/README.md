@@ -118,3 +118,55 @@
     					*//Register route(Normal registration is required without declaration)：<Route path="/demo/test" component={Test}/>
     					*//Receive：this.props.location.state
     					*//ps：Refresh can also preserve parameters
+
+## XII. Programmatic route navigation
+
+    				using the API on the object routes this.prosp.history to jump, forward, and backward to the operation
+    						-this.prosp.history.push()
+    						-this.prosp.history.replace()
+    						-this.prosp.history.goBack()
+    						-this.prosp.history.goForward()
+    						-this.prosp.history.go()
+
+## XIII. BrowserRouter VS HashRouter
+
+    		1.The underlying principle is different:
+    					BrowserRouter using H5 history API，Not compatible with IE9 and below.
+    					HashRouter using the hash value of the URL.
+    		2.The form of expression is different(path)
+    					the path of browserRouter dont have # e.g.：localhost:3000/demo/test
+    					the path of hashRouter include # e.g.：localhost:3000/#/demo/test
+    		3.Effect of refresh on routing state parameter
+    					(1).BrowserRouter has no effect because the State is stored in the History object.
+    					(2).When hashRouter is refreshed, the routing state parameter will be lost!
+    		4.ps：HashRouter could be used to solve some path-related problems.
+
+## XIV. antd
+
+    		1.install：yarn add react-app-rewired customize-cra babel-plugin-import less less-loader
+    		2.update package.json
+    				....
+    					"scripts": {
+    						"start": "react-app-rewired start",
+    						"build": "react-app-rewired build",
+    						"test": "react-app-rewired test",
+    						"eject": "react-scripts eject"
+    					},
+    				....
+    		3.create config-overrides.js
+
+    				const { override, fixBabelImports,addLessLoader} = require('customize-cra');
+    				module.exports = override(
+    					fixBabelImports('import', {
+    						libraryName: 'antd',
+    						libraryDirectory: 'es',
+    						style: true,
+    					}),
+    					addLessLoader({
+    						lessOptions:{
+    							javascriptEnabled: true,
+    							modifyVars: { '@primary-color': 'green' },
+    						}
+    					}),
+    				);
+    			4.import 'antd/dist/antd.css' should delete

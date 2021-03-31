@@ -26,7 +26,7 @@ export default class Message extends Component {
                             {/* <Link to={`/home/message/detail/?id=${megObj.id}&title=${megObj.title}`}>{megObj.title}</Link> */}
 
                             {/* state */}
-                            <Link to={{pathname:'/home/message/detail',state:{id:megObj.id,title:megObj.title}}}>{megObj.title}</Link>
+                            <Link replace to={{pathname:'/home/message/detail',state:{id:megObj.id,title:megObj.title}}}>{megObj.title}</Link>
                           </li>
                         )
                       })
